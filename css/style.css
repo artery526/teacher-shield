@@ -77,11 +77,9 @@ h1 { max-width: 720px; margin-bottom: 14px; color: var(--navy-950); font-size: c
   .category-grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
   .case-list { grid-template-columns: 1fr; }
   .case-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .guide-card:first-child, .guide-card:last-child { grid-column: span 2; }
 }
 
 @media (min-width: 900px) {
   .case-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .case-layout { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .guide-card:first-child, .guide-card:last-child { grid-column: span 3; }
+  .case-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
