@@ -32,7 +32,15 @@ python -m http.server 8080
 
 ## GitHub
 
-本專案先完成本地 Git 初始化。若 GitHub CLI 已登入且具備建立 private repository 的權限，可執行：
+GitHub repository：<https://github.com/artery526/teacher-shield>。
+
+推送到 `master` 時，`.github/workflows/pages.yml` 會自動部署到 GitHub Pages。部署完成後，網址通常是：
+
+<https://artery526.github.io/teacher-shield/>
+
+若 private repository 的 Pages 權限受 GitHub 帳號方案限制，請將 repository 改為 public，或在 GitHub 設定中啟用支援 private Pages 的方案。
+
+若要手動建立 repository，可執行：
 
 ```bash
 gh repo create teacher-shield --private --source . --remote origin --push
