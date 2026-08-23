@@ -1,4 +1,4 @@
-import { CATEGORY_META, GUIDE_SECTIONS, allCases } from "./cases.js";
+import { CATEGORY_META, allCases } from "./cases.js";
 
 const app = document.querySelector("#app");
 const backButton = document.querySelector("#back-button");
@@ -26,12 +26,12 @@ function renderHome() {
       <p class="eyebrow">TEACHER SHIELD / FIRST RESPONSE</p>
       <h1>🚨 老師，你現在遇到什麼狀況？</h1>
       <p class="hero-copy">先從事件開始，不用一次讀完所有法律。選擇最接近的情境，整理現在能做的事。</p>
-      <div class="notice" role="note"><span aria-hidden="true">💡</span><div>如果你正處於立即危險，請先離開現場、尋求身邊的人協助，並視情況聯繫校安或警方。</div></div>
+      <div class="notice" role="note"><span aria-hidden="true">💡</span><div>處理步驟：事件紀錄➡️蒐證➡️詢問校內正式處理程序➡️尋求法律協助</div></div>
     </section>
     <section class="category-grid" aria-label="事件類型">
       ${Object.entries(CATEGORY_META).map(([key, meta]) => `
         <article class="category-card">
-          <div class="category-heading"><span class="category-icon" aria-hidden="true">${meta.icon}</span><div><h2>${meta.label}</h2><p>${meta.description}</p></div></div>
+          <a class="category-heading category-heading-link" href="#category/${key}"><span class="category-icon" aria-hidden="true">${meta.icon}</span><div><h2>${meta.label}</h2><p>${meta.description}</p></div></a>
           <nav class="case-list" aria-label="${meta.label}事件">
             ${state.cases[key].map((item) => `<a class="case-link" href="#case/${item.id}">${item.title}</a>`).join("")}
           </nav>
@@ -39,36 +39,50 @@ function renderHome() {
     </section>`;
 }
 
-function renderLaw(law) {
-  if (!law || law.status === "pending") return `<li class="law-item"><strong>相關法律資料待確認</strong><small>條文、官方來源與確認日期皆待補資料</small></li>`;
-  return `<li class="law-item"><strong>${escapeHtml(law.name)}｜${escapeHtml(law.article)}</strong><small>最後確認：${escapeHtml(law.lastVerifiedDate)}</small><a href="${escapeHtml(law.officialSourceUrl)}" target="_blank" rel="noopener">查看官方來源</a></li>`;
+function lawText(item) {
+  const laws = (item.lawIds || []).map((id) => state.laws.find((law) => law.id === id)).filter(Boolean);
+  if (!laws.length || laws.every((law) => law.status === "pending")) return "待補資料";
+  return laws.map((law) => law.article).join("／");
+}
+
+function renderExampleCard(item, index) {
+  return `<article class="example-card">
+    <p class="example-label">事例 ${index + 1}</p>
+    <h2>${escapeHtml(item.title)}</h2>
+    <p class="example-text">${escapeHtml(item.example || "案例範例待補資料")}</p>
+    <div class="example-meta"><p><strong>可能涉及</strong>${escapeHtml(item.possible || lawText(item))}</p><p><strong>核心保護</strong>${escapeHtml(item.coreProtection || "待補資料")}</p></div>
+  </article>`;
+}
+
+function renderCategory(category) {
+  const meta = CATEGORY_META[category];
+  const items = state.cases[category] || [];
+  document.title = `${meta.label}案例｜師盾`;
+  backButton.hidden = false;
+  app.innerHTML = `<div class="breadcrumbs"><a class="back-link" href="#home">← 回到事件列表</a></div>
+    <section class="case-hero"><p class="eyebrow">CASE EXAMPLES / ${meta.label}</p><h1>${meta.icon} ${meta.label}</h1><p>${meta.description}</p></section>
+    <section class="example-list" aria-label="${meta.label}案例">${items.map(renderExampleCard).join("")}</section>`;
+  window.scrollTo(0, 0);
 }
 
 function renderCase(item) {
   const meta = CATEGORY_META[item.category];
   document.title = `${item.title}｜師盾`;
   backButton.hidden = false;
-  app.innerHTML = `
-    <div class="breadcrumbs"><a class="back-link" href="#home">${meta.icon} ${meta.label}</a> ／ 事件處理</div>
-    <section class="case-hero"><p class="eyebrow">CASE GUIDE / ${meta.label}</p><h1>${item.title}</h1><p>${item.summary}</p></section>
-    <section class="case-layout">
-      ${GUIDE_SECTIONS.map(([key, label], index) => {
-        let content = "";
-        if (key === "laws") {
-          const laws = item.lawIds.map((id) => state.laws.find((law) => law.id === id));
-          content = `<ul class="law-list">${laws.map(renderLaw).join("")}</ul>`;
-        } else {
-          content = `<ul>${(item[key] || []).map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>`;
-        }
-        return `<article class="guide-card"><h2><span>${index + 1}</span>${label}</h2>${content}</article>`;
-      }).join("")}
-    </section>
-    <a class="back-link" href="#home">← 回到事件列表</a>`;
+  app.innerHTML = `<div class="breadcrumbs"><a class="back-link" href="#category/${item.category}">← ${meta.label}案例</a></div>
+    <section class="case-hero"><p class="eyebrow">CASE EXAMPLE / ${meta.label}</p><h1>${item.title}</h1><p>${item.summary}</p></section>
+    <section class="example-list">${renderExampleCard(item, 0)}</section>`;
   window.scrollTo(0, 0);
 }
 
 function route() {
-  const id = decodeURIComponent(location.hash.replace(/^#case\//, ""));
+  const [routeName, routeId] = location.hash.replace(/^#/, "").split("/");
+  const id = decodeURIComponent(routeId || "");
+  if (routeName === "category") {
+    renderCategory(id);
+    app.focus({ preventScroll: true });
+    return;
+  }
   if (location.hash.startsWith("#case/")) {
     const item = state.flatCases.find((candidate) => candidate.id === id);
     item ? renderCase(item) : renderHome();

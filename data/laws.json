@@ -1,3 +1,4 @@
 [
-  {"id":"pending-general","name":"相關法律資料待確認","article":"待補資料","officialSourceUrl":"","lastVerifiedDate":"尚未確認","status":"pending"}
+  {"id":"pending-general","name":"相關法律資料待確認","article":"待補資料","officialSourceUrl":"","lastVerifiedDate":"尚未確認","status":"pending"},
+  {"id":"criminal-309-public-insult","name":"中華民國刑法","article":"第309條 公然侮辱：公然侮辱人者，處拘役或九千元以下罰金。","officialSourceUrl":"https://law.moj.gov.tw/LawClass/LawSingle.aspx?flno=309&pcode=C0000001","lastVerifiedDate":"2026-08-24","status":"verified"}
 ]

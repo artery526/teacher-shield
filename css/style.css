@@ -40,6 +40,8 @@ h1 { max-width: 720px; margin-bottom: 14px; color: var(--navy-950); font-size: c
 .category-grid { display: grid; gap: 18px; }
 .category-card { overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); }
 .category-heading { display: flex; align-items: center; gap: 12px; padding: 20px 20px 14px; }
+.category-heading-link { color: inherit; text-decoration: none; }
+.category-heading-link:hover, .category-heading-link:focus-visible { background: var(--blue-soft); outline: none; }
 .category-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--blue-soft); font-size: 1.3rem; }
 .category-heading h2 { margin: 0; font-size: 1.18rem; }
 .category-heading p { margin: 2px 0 0; color: var(--muted); font-size: .84rem; }
@@ -52,6 +54,14 @@ h1 { max-width: 720px; margin-bottom: 14px; color: var(--navy-950); font-size: c
 .case-hero h1 { margin-bottom: 8px; font-size: 1.375rem; line-height: 1.3; }
 .case-hero p { color: var(--muted); }
 .case-layout { display: grid; gap: 16px; }
+.example-list { display: grid; gap: 16px; }
+.example-card { padding: 20px; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); box-shadow: 0 8px 26px rgba(16, 42, 76, .05); }
+.example-label { margin-bottom: 5px; color: var(--blue); font-size: .82rem; font-weight: 800; letter-spacing: .08em; }
+.example-card h2 { margin-bottom: 12px; color: var(--navy-900); font-size: 1.15rem; }
+.example-text { margin-bottom: 16px; color: var(--ink); font-size: 1rem; }
+.example-meta { display: grid; gap: 8px; padding: 12px 14px; border-radius: 12px; background: #f7f9fc; }
+.example-meta p { margin: 0; color: var(--muted); font-size: .9rem; }
+.example-meta strong { display: inline-block; min-width: 5.5em; color: var(--navy-900); }
 .guide-card { padding: 20px; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); box-shadow: 0 8px 26px rgba(16, 42, 76, .05); }
 .guide-card h2 { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; color: var(--navy-900); font-size: 1.05rem; }
 .guide-card h2 span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--blue-soft); color: var(--blue); font-size: .82rem; }

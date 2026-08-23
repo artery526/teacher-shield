@@ -4,13 +4,6 @@ export const CATEGORY_META = {
   school: { label: "學校／行政問題", icon: "🏫", description: "留下正式紀錄，了解可用的校內程序。" }
 };
 
-export const GUIDE_SECTIONS = [
-  ["record", "事件紀錄"],
-  ["evidence", "蒐證建議"],
-  ["procedure", "校內正式處理程序"],
-  ["laws", "可能相關法律"]
-];
-
 export function allCases(data) {
   return Object.entries(data).flatMap(([category, cases]) => cases.map((item) => ({ ...item, category })));
 }
