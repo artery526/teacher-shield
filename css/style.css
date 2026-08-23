@@ -33,6 +33,7 @@ button { font: inherit; }
 .eyebrow { margin: 0 0 10px; color: var(--blue); font-size: .82rem; font-weight: 800; letter-spacing: .12em; }
 h1, h2, h3, p { margin-top: 0; }
 h1 { max-width: 720px; margin-bottom: 14px; color: var(--navy-950); font-size: clamp(1.575rem, calc(6vw - 2px), 2.675rem); line-height: 1.2; letter-spacing: -.04em; }
+.hero h1 { font-size: 1.25rem; line-height: 1.35; }
 .hero-copy { max-width: 650px; margin-bottom: 0; color: var(--muted); font-size: 1rem; }
 .notice { display: flex; gap: 12px; margin: 24px 0 30px; padding: 14px 16px; border: 1px solid #f0ddb2; border-radius: 14px; background: var(--warning); color: #6b5323; font-size: .9rem; }
 .notice span { flex: 0 0 auto; }
