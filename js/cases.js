@@ -5,12 +5,10 @@ export const CATEGORY_META = {
 };
 
 export const GUIDE_SECTIONS = [
-  ["safety", "立即安全處理"],
   ["record", "事件紀錄"],
   ["evidence", "蒐證建議"],
   ["procedure", "校內正式處理程序"],
-  ["laws", "可能相關法律"],
-  ["help", "何時建議尋求協助"]
+  ["laws", "可能相關法律"]
 ];
 
 export function allCases(data) {
